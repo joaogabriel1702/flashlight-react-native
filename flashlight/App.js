@@ -1,10 +1,23 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {View, StyleSheet, Image, TouchableOpacity} from 'react-native';
+import Torch from 'react-native-torch';
+import RNShake from 'react-native-shake';
 
 const App = () => {
   const [toggle, setToglle] = useState(false);
 
   const handleChangeToggle = () => setToglle(oldToggle => !oldToggle);
+
+  useEffect(() => {
+    Torch.switchState(toggle);
+  }, [toggle]);
+
+  useEffect(() => {
+    const subsciption = RNShake.addListener(() => {
+      setToglle(oldToggle => !oldToggle);
+    });
+    return () => subsciption.remove();
+  }, []);
 
   return (
     <View style={toggle ? style.containerLight : style.container}>
