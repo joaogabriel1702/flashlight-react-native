@@ -1,5 +1,11 @@
 import React, {useState, useEffect} from 'react';
-import {View, StyleSheet, Image, TouchableOpacity} from 'react-native';
+import {
+  View,
+  StyleSheet,
+  Image,
+  TouchableOpacity,
+  Vibration,
+} from 'react-native';
 import Torch from 'react-native-torch';
 import RNShake from 'react-native-shake';
 
@@ -10,11 +16,13 @@ const App = () => {
 
   useEffect(() => {
     Torch.switchState(toggle);
+    Vibration.vibrate(1000);
   }, [toggle]);
 
   useEffect(() => {
     const subsciption = RNShake.addListener(() => {
       setToglle(oldToggle => !oldToggle);
+      Vibration.vibrate(1000);
     });
     return () => subsciption.remove();
   }, []);
