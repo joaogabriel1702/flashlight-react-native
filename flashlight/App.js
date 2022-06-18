@@ -1,11 +1,14 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {View, StyleSheet, Image, TouchableOpacity} from 'react-native';
 
 const App = () => {
-  const toggle = false;
+  const [toggle, setToglle] = useState(false);
+
+  const handleChangeToggle = () => setToglle(oldToggle => !oldToggle);
+
   return (
     <View style={toggle ? style.containerLight : style.container}>
-      <TouchableOpacity onPress={() => {}}>
+      <TouchableOpacity onPress={handleChangeToggle}>
         <Image
           style={toggle ? style.lightingOn : style.lightingOff}
           source={
